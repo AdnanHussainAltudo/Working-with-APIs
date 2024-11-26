@@ -4,6 +4,7 @@ import { UpdatePost } from "@/lib/actions";
 import { PostType } from "@/lib/types";
 import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
+import { toast } from "react-toastify";
 
 export default function EditForm({
   id,
@@ -35,7 +36,10 @@ export default function EditForm({
     console.log(formData);
     const formSubmitRes = await UpdatePost(id, formData);
     console.log(formSubmitRes);
-    alert("Post has been updated successfully");
+    toast.info("Post has been updated successfully");
+    toast(
+      `You may not see any changes in Post ${formData.id} as JSONPlaceholder API doesn't allow modifying its database.`
+    );
     router.push(`/posts/${formSubmitRes.id}`);
   };
 

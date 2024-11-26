@@ -1,6 +1,7 @@
 import { DeletePost } from "@/lib/actions";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { toast } from "react-toastify";
 
 export default function Buttons({ id }: { id: string | null }) {
   const router = useRouter();
@@ -8,7 +9,10 @@ export default function Buttons({ id }: { id: string | null }) {
   const handleDelete = async () => {
     const formSubmitRes = await DeletePost(id);
     console.log(formSubmitRes);
-    alert("Post has been deleted successfully");
+    toast.warning("Post has been deleted");
+    toast(
+      `You may still see Post ${id} as JSONPlaceholder API doesn't allow modifying its database.`
+    );
     router.push(`/`);
   };
 

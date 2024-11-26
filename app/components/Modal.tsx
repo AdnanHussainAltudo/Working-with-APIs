@@ -5,6 +5,7 @@ import { PostType } from "@/lib/types";
 import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
 import PostForm from "./PostForm";
+import { toast } from "react-toastify";
 
 export default function Modal({
   modalVisibility,
@@ -34,8 +35,11 @@ export default function Modal({
     console.log(formData);
     const formSubmitRes = await AddPost(formData);
     console.log(formSubmitRes);
-    alert("Form has been submitted successfully");
     modalVisibility();
+    toast.success("Form has been submitted successfully");
+    toast(
+      "You may not see the new post as JSONPlaceholder API doesn't allow modifying its database."
+    );
     router.push(`/`);
   };
 
