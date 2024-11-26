@@ -36,7 +36,7 @@ export default function Modal({
     console.log(formSubmitRes);
     alert("Form has been submitted successfully");
     modalVisibility();
-    router.push(`/posts/${formSubmitRes.id}`);
+    router.push(`/`);
   };
 
   return (

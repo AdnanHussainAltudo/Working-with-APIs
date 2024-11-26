@@ -35,7 +35,7 @@ export default function EditForm({
     console.log(formData);
     const formSubmitRes = await UpdatePost(id, formData);
     console.log(formSubmitRes);
-    alert("Form has been updated successfully");
+    alert("Post has been updated successfully");
     router.push(`/posts/${formSubmitRes.id}`);
   };
 
