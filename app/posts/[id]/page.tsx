@@ -1,5 +1,5 @@
-import PostDetails from "@/app/components/PostDetails";
-import { FetchPostById } from "@/lib/actions";
+import PostDetails from "@/app/components/PostDetail/PostDetails";
+import { fetchComments, FetchPostById } from "@/lib/actions";
 
 export default async function PageDetails(props: {
   params: Promise<{ id: string }>;
@@ -8,6 +8,7 @@ export default async function PageDetails(props: {
   const id: string = params.id;
 
   const postData = await FetchPostById(id);
+  const postComments = await fetchComments(id);
 
-  return <PostDetails id={id} post={postData} />;
+  return <PostDetails id={id} post={postData} comments={postComments} />;
 }
