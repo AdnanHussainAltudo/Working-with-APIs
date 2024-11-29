@@ -1,8 +1,8 @@
 "use client";
 
-import Modal from "./Modal";
 import Link from "next/link";
 import { useState } from "react";
+import Modal from "./Modal/Modal";
 
 const Header = () => {
   const [modal, setModal] = useState(false);

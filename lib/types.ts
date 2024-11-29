@@ -1,14 +1,14 @@
 import mongoose from "mongoose";
 
 export type PostType = {
-  id?: number;
+  id?: string;
   title?: string;
   body?: string;
   userId?: number;
 };
 
 export type Comment = {
-  id?: number;
+  id?: string;
   message?: string;
   postId?: string | null;
 };
@@ -22,3 +22,15 @@ export const CommentModel =
       postId: { type: String, required: true },
     })
   );
+
+export const PostSchema = new mongoose.Schema(
+  {
+    title: { type: String, required: true },
+    body: { type: String, required: true },
+    userId: { type: Number, required: true },
+  },
+  { timestamps: true }
+);
+
+export const PostModel =
+  mongoose.models.Post || mongoose.model("Post", PostSchema);

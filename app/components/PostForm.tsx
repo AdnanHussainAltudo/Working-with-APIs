@@ -1,5 +1,5 @@
 import { PostType } from "@/lib/types";
-import { FormEvent } from "react";
+import { FormEvent, useState } from "react";
 
 export default function PostForm({
   submitHandler,
@@ -14,12 +14,23 @@ export default function PostForm({
   ) => void;
   modalVisibility: () => void;
 }) {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async (e: FormEvent) => {
+    e.preventDefault();
+    setIsSubmitting(true);
+
+    await submitHandler(e);
+
+    setIsSubmitting(false);
+  };
+
   return (
     <>
       <form
         className="max-w-[25rem] w-full bg-zinc-800 p-8 shadow-md rounded-md"
         onClick={(e) => e.stopPropagation()}
-        onSubmit={submitHandler}
+        onSubmit={handleSubmit}
       >
         <h2 className="text-3xl font-bold">Add a New Post</h2>
         <hr className="mt-2 mb-8" />
@@ -62,8 +73,13 @@ export default function PostForm({
           />
         </p>
         <div className="flex justify-between">
-          <button className="bg-white text-black px-4 py-2 rounded-md font-semibold hover:bg-white/75">
-            Add Post
+          <button
+            className={`${
+              isSubmitting ? "bg-white/25" : "bg-white"
+            } text-black px-4 py-2 rounded-md font-semibold hover:bg-white/75`}
+            disabled={isSubmitting}
+          >
+            {isSubmitting ? "Saving..." : "Add Post"}
           </button>
           <button
             className="bg-black text-white px-4 py-2 rounded-md font-semibold hover:bg-zinc-600/75"

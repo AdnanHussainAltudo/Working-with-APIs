@@ -4,8 +4,8 @@ import { AddPost } from "@/lib/actions";
 import { PostType } from "@/lib/types";
 import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
-import PostForm from "./PostForm";
 import { toast } from "react-toastify";
+import PostForm from "../../PostForm";
 
 export default function Modal({
   modalVisibility,
@@ -32,15 +32,10 @@ export default function Modal({
 
   const submitHandler = async (e: FormEvent) => {
     e.preventDefault();
-    console.log(formData);
     const formSubmitRes = await AddPost(formData);
-    console.log(formSubmitRes);
     modalVisibility();
-    toast.success("Form has been submitted successfully");
-    toast(
-      "You may not see the new post as JSONPlaceholder API doesn't allow modifying its database."
-    );
-    router.push(`/`);
+    toast.success("New Post created successfully");
+    router.push(`/posts/${formSubmitRes.id}`);
   };
 
   return (

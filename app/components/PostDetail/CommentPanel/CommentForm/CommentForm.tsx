@@ -1,5 +1,8 @@
+"use client";
+
 import { addComment } from "@/lib/actions";
 import { Comment } from "@/lib/types";
+import clsx from "clsx";
 import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
 import { toast } from "react-toastify";
@@ -9,6 +12,8 @@ export default function CommentForm({ id }: { id: string | null }) {
     message: "",
     postId: id,
   });
+
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
   const router = useRouter();
 
@@ -21,12 +26,12 @@ export default function CommentForm({ id }: { id: string | null }) {
   };
 
   const submitHandler = async (e: FormEvent) => {
+    setIsSubmitting(true);
     e.preventDefault();
-    console.log(formData);
     const formSubmitRes = await addComment(formData);
-    console.log(formSubmitRes);
     toast.info("Comment added to the Post");
     router.push(`/posts/${formSubmitRes.postId}`);
+    setIsSubmitting(false);
   };
   return (
     <>
@@ -51,8 +56,13 @@ export default function CommentForm({ id }: { id: string | null }) {
           />
         </p>
         <div className="flex justify-between">
-          <button className="bg-white text-black px-4 py-2 rounded-md font-semibold hover:bg-white/75">
-            Add Comment
+          <button
+            className={clsx(" text-black px-4 py-2 rounded-md font-semibold ", {
+              "bg-white hover:bg-white/75": !isSubmitting,
+              "bg-white/25": isSubmitting,
+            })}
+          >
+            {isSubmitting ? "Adding..." : "Add Comment"}
           </button>
         </div>
       </form>

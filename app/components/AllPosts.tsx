@@ -14,7 +14,7 @@ export default function AllPosts({ allPosts }: { allPosts: PostType[] }) {
 
   return (
     <>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 min-h-screen md:mx-10 font-[family-name:var(--font-geist-sans)]">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 md:mx-10 font-[family-name:var(--font-geist-sans)]">
         {posts.map((post) => (
           <div key={post.id} className="p-6">
             <Link href={`/posts/${post.id}`}>

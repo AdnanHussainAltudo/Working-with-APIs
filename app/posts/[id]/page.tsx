@@ -10,5 +10,15 @@ export default async function PageDetails(props: {
   const postData = await FetchPostById(id);
   const postComments = await fetchComments(id);
 
-  return <PostDetails id={id} post={postData} comments={postComments} />;
+  return (
+    <>
+      {postData === null ? (
+        <div className="flex justify-center min-h-screen mx-10 font-[family-name:var(--font-geist-sans)] p-6">
+          <p>No Post found with given ID.</p>
+        </div>
+      ) : (
+        <PostDetails id={id} post={postData} comments={postComments} />
+      )}
+    </>
+  );
 }
